@@ -1,0 +1,51 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Vandelay Industries Toystore </title>
+    <link rel="stylesheet" href="{% static "products.css" %}">
+  </head>
+  <body>
+    <header>
+      <h1>Vandelay Industries Toystore</h1>
+    </header>
+
+    <section id="filters">
+      <form action="{% url 'index' %}" method="get">
+        {{ search_form.as_p }}
+        <input type="submit" value="Filter products">
+      </form>
+      <a href="{% url 'index' %}?reset=true">Reset filters</a>
+    </section>
+
+    <section id="main">
+      <table>
+        <tr>
+          <th><a href="{% url 'index' %}?sort=name">Name</a></th>
+          <th>Description</th>
+          <th><a href="{% url 'index' %}?sort=price">Price</a></th>
+          <th>Age</th>
+          <th>Image</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+          <td class="name", align="center">{{ product.name|title }}</td>
+          <td class="description", alight="center">{{ product.description|truncatewords:3 }}</td>
+          <td class="price", align="right">${{ product.price }}</td>
+          <td class="age", align="center">{{product.age_range}}</td>
+          <td class="image", align="center">{% if product.photo and product.photo.width > product.photo.height %}
+                   <img src= {{ product.photo.url }} width=100 />
+            {% elif product.photo.length > product.photo.width%}
+                   <img src= {{ product.photo.url }} height=100 />
+            {% elif product.photo.length == product.photo.width%}
+                   <img src= {{ product.photo.url }} height=100 width=100 />
+       
+          {% endif %}</td>
+        </tr>
+        {% endfor %}
+      <table>
+    </section>
+
+  </body>
+</html>
