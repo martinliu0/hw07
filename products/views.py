@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.urlresolvers import reverse
+
 from django.contrib.messages import info, warning, success
 from .models import Product
 from .forms import ProductFilterForm
@@ -46,10 +48,10 @@ def index_view(request):
                 products = search_form_helper(request.session['filter'], products)
 
 
-        # if 'filter' in request.session and 'sort' in request.session:
-        #     rest_query = '{}={}&{}={}&{}={}&{}={}'.format('sort', request.session.get('sort', ''), 'product_search', request.session['filter'].get('product_search', ''), 'min_price', request.session['filter'].get('min_price', ''), 'max_price', request.session['filter'].get('max_price', ''))
-        #     if request.META['QUERY_STRING'] != rest_query:
-        #         return redirect('index', kwargs = {"abcd": rest_query})
+        if 'filter' in request.session and 'sort' in request.session:
+            rest_query = '{}={}&{}={}&{}={}&{}={}'.format('sort', request.session.get('sort', ''), 'product_search', request.session['filter'].get('product_search', ''), 'min_price', request.session['filter'].get('min_price', ''), 'max_price', request.session['filter'].get('max_price', ''))
+            if request.META['QUERY_STRING'] != rest_query:
+                return redirect(reverse('index') + '?{}'.format(rest_query))
                 
         
 
