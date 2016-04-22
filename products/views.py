@@ -46,11 +46,11 @@ def index_view(request):
                 products = search_form_helper(request.session['filter'], products)
 
 
-        if 'filter' in request.session and 'sort' in request.session:
-            rest_query = '{}={}&{}={}&{}={}&{}={}'.format('sort', request.session.get('sort', ''), 'product_search', request.session['filter'].get('product_search', ''), 'min_price', request.session['filter'].get('min_price', ''), 'max_price', request.session['filter'].get('max_price', ''))
-            if request.META['QUERY_STRING'] != rest_query:
-                return redirect('?{}={}&{}={}&{}={}&{}={}'.format('sort', request.session.get('sort', ''), 'product_search', request.session['filter'].get('product_search', ''), 'min_price', request.session['filter'].get('min_price', ''), 'max_price', request.session['filter'].get('max_price', '')))
-
+        # if 'filter' in request.session and 'sort' in request.session:
+        #     rest_query = '{}={}&{}={}&{}={}&{}={}'.format('sort', request.session.get('sort', ''), 'product_search', request.session['filter'].get('product_search', ''), 'min_price', request.session['filter'].get('min_price', ''), 'max_price', request.session['filter'].get('max_price', ''))
+        #     if request.META['QUERY_STRING'] != rest_query:
+        #         return redirect('index', kwargs = {"abcd": rest_query})
+                
         
 
 
