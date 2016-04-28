@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}{{block.super}} | product details{% endblock title %}
+{% block main %}
+<h3>Product details for <span class="productname">{{ product.name|title }}</span>.</h3>
+<ul>
+
+	{% if product.image %}	
+		{% if product.image.url.width > product.image.url.height %}
+	                <img src="{{ product.image.url }}" width=100>
+	              {% else %}
+	                <img src="{{ product.image.url }}" height=100>
+	              {% endif %}
+	{% endif %}
+
+	<p>Description: {{ product.description }}</p>
+	<p>Reviews: </p>
+
+	{% if count != 0 %}
+		<ul>
+		{% for review in reviews %}
+			<li>{{ review }}</li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		No reviews for this product yet.
+
+	{% endif %}
+
+	
+	<p> Now available for ${{ product.price }}.</p>
+	
+</ul>
+<p><a href="{% url 'review' product.id %}">Write a review</a></p>
+<p><a href="{% url 'index' %}">Back to all products.</a></p>
+{% endblock main %}

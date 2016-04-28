@@ -38,31 +38,27 @@ body h3 {
 body .products_table {
   position: relative;
   top: 10px;
-  width: 50%;
+  width: 90%;
   left: 5%;
   background-color: #6D8DB7;
   color: #FFD3B8;
   padding: 10px;
   margin-bottom: 20px;
-  margin-right: 20px;
   text-align: left;
   font-family: Helvetica, sans-serif;
   font-size: 13pt;
   font-weight: 200;
   font-style: normal;
 }
-body td{
-  width: 20%;
-}
 body .products_table caption {
   font-family: Helvetica, sans-serif;
   font-size: 20pt;
   font-weight: 200;
   font-style: normal;
-
 }
-
-
+body td{
+  width: 20%;
+}
 body th {
   font-weight: bold;
   border-bottom: #061539 1px solid;
@@ -70,4 +66,18 @@ body th {
 body a:link, body a:visited, body .products_table th {
   color: #A9511D;
   background-color: #6D8DB7;
+}
+.price {
+  text-align: right;
+}
+div .user{
+  background-color: #777777;
+}
+
+.review th {
+  width: 4%;
+  height: 10pt;
+  border: 1px solid #999;
+  padding: 0.5rem;
+  text-align: left;
 }

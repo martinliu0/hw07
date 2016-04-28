@@ -1,22 +1,14 @@
-{% load staticfiles %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title> Vandelay Industries Toystore </title>
-    <link rel="stylesheet" href="{% static "products.css" %}">
-  </head>
-  <body>
-    <header>
-      <h1>Vandelay Industries Toystore</h1>
-    </header>
+{% block title %} {{ block.super }} | all products {% endblock title %}
 
+{% block main %}
     <section id="filters">
       <form action="{% url 'index' %}" method="get">
         {{ search_form.as_p }}
         <input type="submit" value="Filter products">
       </form>
-      <a href="{% url 'index' %}?reset=true">Reset filters</a>
+      <p><a href="{% url 'index' %}?reset=true">Reset filters</a>
     </section>
 
     <section id="main">
@@ -24,28 +16,29 @@
         <tr>
           <th><a href="{% url 'index' %}?sort=name">Name</a></th>
           <th>Description</th>
+          <th>Appropriate age</th>
           <th><a href="{% url 'index' %}?sort=price">Price</a></th>
-          <th>Age</th>
           <th>Image</th>
+          <th>Ratings</th>
         </tr>
         {% for product in products %}
         <tr>
-          <td class="name", align="center">{{ product.name|title }}</td>
-          <td class="description", alight="center">{{ product.description|truncatewords:3 }}</td>
-          <td class="price", align="right">${{ product.price }}</td>
-          <td class="age", align="center">{{product.age_range}}</td>
-          <td class="image", align="center">{% if product.photo and product.photo.width > product.photo.height %}
-                   <img src= {{ product.photo.url }} width=100 />
-            {% elif product.photo.length > product.photo.width%}
-                   <img src= {{ product.photo.url }} height=100 />
-            {% elif product.photo.length == product.photo.width%}
-                   <img src= {{ product.photo.url }} height=100 width=100 />
-       
-          {% endif %}</td>
+          <td class="name" align="center"><a href="{% url 'details' product.id %}">{{ product.name|title }}</a></td>
+          <td class="description" align="center">{{ product.description|truncatewords:3 }}</td>
+          <td class="ages" align="center">{{product.age_range}}</td>
+          <td class="price" align="right">${{ product.price }}</td>
+          <td class="image" align="center">
+            {% if product.image %}
+              {% if product.image.url.width > product.image.url.height %}
+                <img src="{{ product.image.url }}" width=100>
+              {% else %}
+                <img src="{{ product.image.url }}" height=100>
+              {% endif %}
+            {% endif %}
+          </td>
+          <td>{{ product.ratings | floatformat:1 }}</td>
         </tr>
         {% endfor %}
-      <table>
+      </table>
     </section>
-
-  </body>
-</html>
+{% endblock main %}
